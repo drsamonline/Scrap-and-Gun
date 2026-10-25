@@ -53,7 +53,7 @@ Then open `http://localhost:8080` for the landing page, or `http://localhost:808
 - **Roguelite upgrades:** choose one of three run-only upgrades after a cleared wave.
 - **Time-loop rewind:** one free rewind per run; subsequent successful rewinds consume a persistent boss core.
 - **Audio and visual polish:** procedural chiptune, spatialized effects, themes, CRT overlays, pixel font and hit feedback.
-- **Accessibility and input options:** remappable keys, visual palettes, reduced motion, touch controls and browser gamepad support.
+- **Accessibility and input options:** remappable keys, visual palettes, reduced motion, complete touch controls (movement, aim/fire, building, pause, wave advance) and browser gamepad support.
 - **Offline-ready shell:** optional PWA manifest and service-worker cache.
 
 This is an enhanced development build. Some features are implemented and covered by regression checks, but not every mode, input method, device and interaction has completed hands-on browser QA.
@@ -74,7 +74,7 @@ This is an enhanced development build. Some features are implemented and covered
 | Advance wave | Hold `Space` for 0.5 seconds |
 | Pause / mute / fullscreen | `Esc` / `M` / `F11` |
 
-On the title screen, press `R` to select Rhythm mode or `C` to toggle local co-op. Player 2 moves with `I/J/K/L`, fires with Numpad `0`, and dashes with Numpad `1`. See [the full controls reference](docs/CONTROLS.md).
+On the title screen, press `R` to select Rhythm mode or `C` to toggle local co-op. Player 2 moves with `I/J/K/L`, fires with Numpad `0`, and dashes with Numpad `1`. On phones, rotate to landscape: touch controls cover movement, aiming, building, pausing and advancing waves. See [the full controls reference](docs/CONTROLS.md).
 
 ## Project layout
 
@@ -101,7 +101,9 @@ On the title screen, press `R` to select Rhythm mode or `C` to toggle local co-o
     │   └── minify.js
     └── tests/
         ├── smoke.test.js
-        └── runtime-smoke.test.js
+        ├── sw.test.js
+        ├── runtime-smoke.test.js
+        └── touch.test.js
 ```
 
 ## Build and test
@@ -121,6 +123,7 @@ node --check game.min.js
 node --check sw.js
 node tests/sw.test.js
 node tests/smoke.test.js
+node tests/touch.test.js
 node tests/runtime-smoke.test.js game.js
 node tests/runtime-smoke.test.js game.min.js
 ```

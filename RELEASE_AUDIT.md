@@ -1,5 +1,26 @@
 # SCRAP & GUN — Release Audit Notes
 
+## Mobile playability and rendering pass
+
+Audited the game in a real headless Chromium at mobile portrait, mobile landscape and desktop viewports, driving it with keyboard and synthesised multi-touch input. Fixed the following real play defects:
+
+- **Building was impossible on touch devices.** The bottom build bar was never wired to touch input, and because the in-game touch handler called `preventDefault()` on every touch, the compatibility mouse events that would have selected a building were suppressed. The build bar is now tappable, a selected building is placed by tapping a tile, and the same handler covers the bomb/dash buttons.
+- **No pause, and no way to skip the build phase, on touch.** Added an on-screen pause button and a `NEXT >` button.
+- **Portrait rendered a tiny letterboxed strip** with no guidance. Added a portrait gate that shows a rotate prompt (with a "Continue in portrait" option) on touch devices, and pauses an in-progress run when it appears.
+- **Touch aiming was anchored to the fire button** rather than the touch point, so touching anywhere on the right half snapped the aim to an extreme. Aim is now relative to where the finger lands, matching the movement stick.
+- **Missing pixel-font glyphs.** The ampersand (`&`) — the game's own name, the HUD and the settings title — the scrap diamond, the rapid-fire and damage indicators, and the multiplication sign had no glyphs and rendered as `?`. Added glyphs and removed the `×` substitution.
+
+### Verification
+- `node --check game.js` / `game.min.js` / `sw.js` — passed.
+- `node tests/sw.test.js` — passed (5 checks).
+- `node tests/smoke.test.js` — passed (80 static feature checks).
+- `node tests/runtime-smoke.test.js game.js` and `… game.min.js` — passed (1,400 simulated frames plus save/load and time-loop assertions).
+- Deterministic headless touch harness — passed: slot selection, tap-to-place (with correct scrap spend and no false error), occupied-tile rejection, relative aiming and the pause button.
+- Live headless Chromium at 390×844, 844×390 and 1440×900 — build → place → advance wave → pause verified with no console or page errors.
+
+### Remaining limits
+Still an enhanced development build. Touch aiming and placement are now functional but have not been tested on physical phones across iOS Safari and Android Chrome; the portrait gate relies on `resize`/`orientationchange` events. Full device QA (PWA install, offline reopening, low-end performance, gamepad on hardware) remains outstanding.
+
 ## This pass
 
 - Extended Daily-mode seeded randomness beyond wave composition and upgrade drafts.

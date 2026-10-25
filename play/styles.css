@@ -5,4 +5,13 @@ body{display:flex;align-items:center;justify-content:center;font-family:'Courier
 canvas{display:block;width:min(100vw,133.333vh);height:auto;image-rendering:pixelated;image-rendering:crisp-edges;box-shadow:0 0 0 2px #1c2a3a,0 0 70px rgba(62,230,196,.09),0 24px 60px rgba(0,0,0,.85);border-radius:2px;cursor:crosshair}
 #scan{position:absolute;inset:0;pointer-events:none;border-radius:2px;background:repeating-linear-gradient(to bottom,rgba(0,0,0,0) 0px,rgba(0,0,0,0) 2px,rgba(0,0,0,.2) 3px,rgba(0,0,0,.2) 4px);mix-blend-mode:multiply}
 #vig{position:absolute;inset:0;pointer-events:none;border-radius:2px;background:radial-gradient(ellipse at center,rgba(0,0,0,0) 42%,rgba(0,0,0,.6) 100%)}
+#rotate{position:fixed;inset:0;z-index:50;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;text-align:center;padding:28px;background:radial-gradient(circle at 50% 40%,#0d1520 0%,#05070a 70%);color:#c8d6e5;font-family:'Courier New',monospace}
+#rotate[hidden]{display:none}
+#rotate h1{margin:0;font-size:22px;letter-spacing:.14em;text-transform:uppercase;color:#3ee6c4;text-shadow:0 0 18px rgba(62,230,196,.4)}
+#rotate p{margin:0;color:#8ea3b8;font-size:14px}
+#rotate .rot-icon{width:70px;height:70px;border:4px solid #3ee6c4;border-radius:12px;position:relative;animation:rot 1.8s ease-in-out infinite}
+#rotate .rot-icon::after{content:'';position:absolute;top:-14px;right:-10px;border:9px solid transparent;border-bottom-color:#ff4fa3}
+@keyframes rot{0%,40%{transform:rotate(0)}60%,100%{transform:rotate(90deg)}}
+#rotate button{margin-top:8px;font-family:'Courier New',monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;padding:12px 22px;background:transparent;color:#8ea3b8;border:1px solid #1c2a3a;border-radius:4px;cursor:pointer}
+#rotate button:hover{border-color:#4dc3ff;color:#4dc3ff}
 
