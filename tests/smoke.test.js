@@ -1,0 +1,97 @@
+const fs = require('fs');
+const path = require('path');
+const jsFile = process.argv[2] || 'game.js';
+// Feature labels/comments are intentionally removed from production minification; use source for static inventory checks.
+const js = fs.readFileSync(path.join(__dirname, '..', jsFile === 'game.min.js' ? 'game.js' : jsFile), 'utf8');
+const html = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
+const features = {
+  AStar: 'findPathAStar',
+  objectPooling: 'class PooledArray',
+  spatialGrid: 'Uniform spatial grid',
+  edgeThreats: 'function drawThreatIndicators',
+  hitStop: 'S.hitStop',
+  shooterTelegraph: "e.type==='shooter'&&e.telegraph>0",
+  recoil: 'P.muzzleFlash',
+  decals: 'function drawDamageDecals',
+  bossVariants: "['charger','summoner','splitter-boss','juggernaut','bullet-hell']",
+  bomber: "bomber:{hp:25",
+  shielded: "shielded:{hp:60",
+  flyer: "flyer:{hp:40",
+  sniper: "sniper:{name:'SNIPER'",
+  tesla: "tesla:{name:'TESLA'",
+  mortar: "mortar:{name:'MORTAR'",
+  errorBoundary: 'SCRAP & GUN update error',
+  responsive: "window.addEventListener('resize'",
+  mapLayouts: "selectedMap==='cross'",
+  mutators: "glassCannon",
+  persistentTechTree: "sg_meta_v1",
+  enemyCodex: 'function drawCodexPanel',
+  dailySeed: 'seedFromString(dailySeed)',
+  endlessMode: "selectedMode==='endless'",
+  keyRemapping: 'function getSettingsRows()',
+  colorblindPalettes: 'deuteranopia',
+  reducedMotion: 'settings.reducedMotion',
+  fullscreen: 'requestFullscreen',
+  buildTooltips: 'function drawBuildTooltip()',
+  holdToSell: 'sellHold/.4',
+  countdownWarning: 'S.lastCountdown',
+  holdSpace: 'spaceHold/.5',
+  scoreBreakdown: 'COMBOS:',
+  runHistory: 'function drawHistory()',
+  achievementToasts: 'function drawAchievementToast()',
+  mobileTouch: "cv.addEventListener('touchstart'",
+  gamepad: 'navigator.getGamepads',
+  weaponCrosshair: 'function drawCrosshair()',
+  hitMarker: 'function drawHitMarkers()',
+  chiptuneTracks: 'const MUSIC=',
+  bossMusic: 'boss:{tempo:160',
+  footsteps: 'function footstep()',
+  placementAudio: 'function placementSfx(type)',
+  hurtVariants: 'function hurtSfx()',
+  pitchVariance: '(Math.random()-.5)*.1',
+  spatialAudio: 'createStereoPanner',
+  audioDucking: 'function duckMusic()',
+  roboticAnnouncer: 'function announce(label)',
+  uiClickAudio: 'function uiClick(kind',
+  spriteParts: 'Procedural 4–8 rectangle sprite parts',
+  wallAutotiling: 'FEAT-F57',
+  additiveGlow: 'function drawGlowPixel',
+  crtOptions: 'function applyCRTOptions()',
+  visualThemes: 'const THEMES=',
+  pixelFont: 'const PIXEL_GLYPHS=',
+  depthSorting: 'B.slice().sort((a,b)=>a.y-b.y)',
+  entityShadows: 'function drawEntityShadow',
+  damageFlashVariants: 'hitFlashKind',
+  bossIntro: 'function spawnEnemy',
+  fixedTimestep: 'const FIXED_DT=1/60',
+  saveLoad: 'function loadMidRun()',
+  versionedSaveValidation: 'function validRunState(d)',
+  persistedTimeLoop: 'timeLoopSnapshot,timeLoopUsed,timeLoopDeclined',
+  persistentCoresNotRewound: 'meta.cores=Math.max(0,meta.cores-1)',
+  saveOnWaveClear: 'saveMidRun();',
+  pwaRegistration: 'navigator.serviceWorker.register',
+  fpsGraph: 'frameTimes.slice(-60)',
+  integerScaling: 'function resizeCanvas()',
+  rogueliteDraft: 'function chooseRogueCard(i)',
+  timeLoop: 'function restoreWaveSnapshot()',
+  bulletHellBoss: "e.bossKind==='bullet-hell'",
+  rhythmBonus: 'function drawRhythmIndicator()',
+  localCoop: 'function updatePlayer2(dt)',
+  guardedStorage: 'const safeStore=',
+  corruptStorageFallback: 'function readStoredJSON(key,fallback)',
+  deterministicDailyDraft: "selectedMode==='daily'?seededRand():Math.random()",
+  seededGameplayRandom: "function gameplayRand(){return selectedMode==='daily'?seededRand():Math.random();}",
+  dailyCritSeeded: "const crit=gameplayRand()<rogueCount('crit')*.1;",
+  dailyEnemySpawnSeeded: "const d=ENM[type],side=Math.floor(gameplayRand()*4);",
+  dailyPickupSeeded: "if(gameplayRand()>ch)return;",
+  dailyBossTargetSeeded: "const laserTarget=P2&&gameplayRand()<.5?P2:P;"
+};
+for (const [name, needle] of Object.entries(features)) {
+  if (!js.includes(needle)) throw new Error('Missing feature marker: ' + name);
+}
+const cardCount = (js.match(/\{id:'[^']+',name:/g) || []).length;
+if (cardCount !== 22) throw new Error('Expected 22 roguelite cards, found ' + cardCount);
+if (!html.includes('styles.css') || !html.includes('game.min.js')) throw new Error('Entry point is not wired to package assets');
+if (!html.includes('manifest.webmanifest')) throw new Error('PWA manifest is not linked');
+for (const file of ['sw.js', 'manifest.webmanifest', 'icon.svg']) if (!fs.existsSync(path.join(__dirname, '..', file))) throw new Error('Missing PWA file: ' + file);
+console.log(`SCRAP & GUN smoke checks passed (${Object.keys(features).length} feature checks).`);

@@ -1,0 +1,8 @@
+
+*{margin:0;padding:0;box-sizing:border-box}html,body{height:100%;background:#05070a;overflow:hidden}
+body{display:flex;align-items:center;justify-content:center;font-family:'Courier New',monospace;background:radial-gradient(circle at 50% 40%,#0d1520 0%,#05070a 70%)}
+#stage{position:relative;line-height:0}
+canvas{display:block;width:min(100vw,133.333vh);height:auto;image-rendering:pixelated;image-rendering:crisp-edges;box-shadow:0 0 0 2px #1c2a3a,0 0 70px rgba(62,230,196,.09),0 24px 60px rgba(0,0,0,.85);border-radius:2px;cursor:crosshair}
+#scan{position:absolute;inset:0;pointer-events:none;border-radius:2px;background:repeating-linear-gradient(to bottom,rgba(0,0,0,0) 0px,rgba(0,0,0,0) 2px,rgba(0,0,0,.2) 3px,rgba(0,0,0,.2) 4px);mix-blend-mode:multiply}
+#vig{position:absolute;inset:0;pointer-events:none;border-radius:2px;background:radial-gradient(ellipse at center,rgba(0,0,0,0) 42%,rgba(0,0,0,.6) 100%)}
+
