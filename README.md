@@ -27,8 +27,8 @@ A retro pixel-art arena defense shooter with tactical construction, escalating e
 
 | | |
 | --- | --- |
-| **Landing page** | <https://drsamonline.github.io/Scrap-and-Gun/> |
-| **Live demo (the game)** | <https://drsamonline.github.io/Scrap-and-Gun/play/> |
+| **Landing page** | [drsamonline.github.io/Scrap-and-Gun](https://drsamonline.github.io/Scrap-and-Gun/) |
+| **Live demo (the game)** | [drsamonline.github.io/Scrap-and-Gun/play](https://drsamonline.github.io/Scrap-and-Gun/play/) |
 | **Download a build** | [Releases](https://github.com/drsamonline/Scrap-and-Gun/releases) — unzip and open `index.html` |
 | **Run locally** | Open `play/index.html`, or `npx http-server . -p 8080` and visit `http://localhost:8080/play/` |
 
