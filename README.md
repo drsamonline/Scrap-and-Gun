@@ -32,7 +32,7 @@ A retro pixel-art arena defense shooter with tactical construction, escalating e
 **No installation or build step is required.**
 
 1. Download and extract this package, or clone the repository.
-2. Open `index.html` in a modern browser to play locally.
+2. Open `index.html` for the landing page, or `play/index.html` to jump straight into the game.
 3. For offline/PWA behavior, serve the folder through HTTPS or localhost. Service workers do not run from a `file://` URL.
 
 For example, with Node.js installed:
@@ -41,7 +41,7 @@ For example, with Node.js installed:
 npx http-server . -p 8080
 ```
 
-Then open `http://localhost:8080`.
+Then open `http://localhost:8080` for the landing page, or `http://localhost:8080/play/` for the game.
 
 ## Features
 
@@ -79,27 +79,29 @@ On the title screen, press `R` to select Rhythm mode or `C` to toggle local co-o
 ## Project layout
 
 ```text
-scrap_gun_package/
-├── index.html
-├── styles.css
-├── game.js                 # readable source of truth
-├── game.min.js             # production script loaded by index.html
-├── sw.js
-├── manifest.webmanifest
-├── icon.svg
-├── LICENSE
+.
+├── index.html              # landing page served by GitHub Pages
 ├── README.md
+├── LICENSE
 ├── RELEASE_AUDIT.md
-├── tools/
-│   └── minify.js
 ├── docs/
 │   ├── ARCHITECTURE.md
 │   ├── CONTROLS.md
 │   ├── TESTING.md
 │   └── screenshots/
-└── tests/
-    ├── smoke.test.js
-    └── runtime-smoke.test.js
+└── play/                   # the game itself
+    ├── index.html          # game entry point
+    ├── styles.css
+    ├── game.js             # readable source of truth
+    ├── game.min.js         # production script loaded by play/index.html
+    ├── sw.js
+    ├── manifest.webmanifest
+    ├── icon.svg
+    ├── tools/
+    │   └── minify.js
+    └── tests/
+        ├── smoke.test.js
+        └── runtime-smoke.test.js
 ```
 
 ## Build and test
@@ -107,12 +109,13 @@ scrap_gun_package/
 Regenerate the production script after changing `game.js`:
 
 ```sh
-node tools/minify.js
+node play/tools/minify.js
 ```
 
 Run syntax, static and simulated-runtime checks against both readable and production scripts:
 
 ```sh
+cd play
 node --check game.js
 node --check game.min.js
 node --check sw.js
