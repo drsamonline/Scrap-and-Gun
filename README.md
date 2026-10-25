@@ -6,7 +6,13 @@
 
 A retro pixel-art arena defense shooter with tactical construction, escalating enemy waves, persistent upgrades, roguelite drafts, bosses and local co-op.
 
-![License](https://img.shields.io/badge/license-PolyForm%20Noncommercial-blueviolet?style=for-the-badge)
+**[▶ Play in your browser](https://drsamonline.github.io/Scrap-and-Gun/play/)** · **[Landing page](https://drsamonline.github.io/Scrap-and-Gun/)** · **[Releases](https://github.com/drsamonline/Scrap-and-Gun/releases)**
+
+[![Play now](https://img.shields.io/badge/%E2%96%B6%20play%20now-3ee6c4?style=for-the-badge)](https://drsamonline.github.io/Scrap-and-Gun/play/)
+[![Live demo](https://img.shields.io/badge/live%20demo-GitHub%20Pages-2ea44f?style=for-the-badge)](https://drsamonline.github.io/Scrap-and-Gun/)
+[![Release](https://img.shields.io/github/v/release/drsamonline/Scrap-and-Gun?include_prereleases&style=for-the-badge&color=ff4fa3&label=release)](https://github.com/drsamonline/Scrap-and-Gun/releases)
+
+[![License](https://img.shields.io/badge/license-PolyForm%20Noncommercial-blueviolet?style=for-the-badge)](LICENSE)
 ![Runtime](https://img.shields.io/badge/runtime-browser%20%2F%20Canvas-1f6feb?style=for-the-badge)
 ![Dependencies](https://img.shields.io/badge/dependencies-none-2ea44f?style=for-the-badge)
 ![Status](https://img.shields.io/badge/status-enhanced%20development-orange?style=for-the-badge)
@@ -15,17 +21,34 @@ A retro pixel-art arena defense shooter with tactical construction, escalating e
 
 ---
 
+## Play it
+
+**[▶ Play in your browser →](https://drsamonline.github.io/Scrap-and-Gun/play/)** — no install, no build step.
+
+| | |
+| --- | --- |
+| **Landing page** | <https://drsamonline.github.io/Scrap-and-Gun/> |
+| **Live demo (the game)** | <https://drsamonline.github.io/Scrap-and-Gun/play/> |
+| **Download a build** | [Releases](https://github.com/drsamonline/Scrap-and-Gun/releases) — unzip and open `index.html` |
+| **Run locally** | Open `play/index.html`, or `npx http-server . -p 8080` and visit `http://localhost:8080/play/` |
+
+On phones, rotate to landscape — touch controls cover movement, aiming, building, pausing and advancing waves.
+
 ## Screenshots
 
-### Title screen
+<p align="center">
+  <img src="docs/screenshots/title-screen.png" alt="SCRAP &amp; GUN title screen" width="49%" />
+  <img src="docs/screenshots/gameplay.png" alt="Build phase — placing defences around the core" width="49%" />
+</p>
+<p align="center"><em>Title screen · Build phase</em></p>
 
-![SCRAP & GUN title screen](docs/screenshots/title-screen.png)
+<p align="center">
+  <img src="docs/screenshots/combat.png" alt="Combat — enemies advancing on the core" width="49%" />
+  <img src="docs/screenshots/mobile-landscape.png" alt="Mobile landscape with on-screen touch controls" width="49%" />
+</p>
+<p align="center"><em>Combat · Mobile landscape with touch controls</em></p>
 
-### Build phase
-
-![SCRAP & GUN gameplay build phase](docs/screenshots/gameplay.png)
-
-> These captures are rendered from the current game code through a Canvas 2D-compatible rendering shim. They are useful visual previews, not a substitute for live-browser QA; fonts and rendering can vary by platform.
+> Captured from the current build in a headless Chromium at desktop and phone-landscape sizes.
 
 ## Quick start
 

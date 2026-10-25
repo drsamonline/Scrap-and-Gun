@@ -33,4 +33,4 @@ The touch suite runs the game in a simulated touch-capable DOM and asserts build
 
 ## Screenshot provenance
 
-The screenshots under `docs/screenshots/` were rendered from the current game code using a Canvas 2D-compatible rendering shim. They show the title and a build-phase game frame; they are illustrative code-rendered captures, not photographs of a live browser window. Their exact appearance can vary by browser and font implementation.
+The screenshots under `docs/screenshots/` were captured from the current build in a headless Chromium at a 1440×900 desktop viewport and an 844×390 phone-landscape viewport. They show the title screen, the build phase, combat and the mobile touch layout. Appearance can still vary slightly by browser and font implementation.
