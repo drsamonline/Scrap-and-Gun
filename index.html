@@ -213,7 +213,7 @@ footer .links{display:flex;gap:22px;justify-content:center;flex-wrap:wrap;margin
   <section class="wrap">
     <h2>Before you <em>judge it</em></h2>
     <div class="note">
-      This is an enhanced development build. Core systems are implemented and covered by static and simulated-runtime regression checks, but not every mode, input method, device and interaction has completed hands-on browser QA. The screenshots above are code-rendered previews rather than live-browser captures. See the repository's testing notes for the outstanding manual checklist.
+      This is an enhanced development build. Core systems are implemented and covered by static and simulated-runtime regression checks, but not every mode, input method, device and interaction has completed hands-on browser QA. The screenshots above are captured from the current build in a headless browser rather than from a live interactive session. See the repository's testing notes for the outstanding manual checklist.
     </div>
   </section>
 
@@ -232,5 +232,21 @@ footer .links{display:flex;gap:22px;justify-content:center;flex-wrap:wrap;margin
     <p>Required Notice: Copyright © 2026 Dr. Sohil Momin.</p>
   </footer>
 </main>
+<script>
+/* Retire a legacy root-scoped service worker from an earlier release that could serve a cached
+   copy of the game at this URL instead of the landing page. Only root-scoped registrations are
+   removed; the game's own worker lives under /play/ and is left untouched. */
+(function () {
+  if (!('serviceWorker' in navigator)) return;
+  var root = new URL('./', location.href).pathname;
+  navigator.serviceWorker.getRegistrations().then(function (regs) {
+    regs.forEach(function (reg) {
+      try {
+        if (new URL(reg.scope).pathname === root) reg.unregister().catch(function () {});
+      } catch (e) {}
+    });
+  }).catch(function () {});
+})();
+</script>
 </body>
 </html>
