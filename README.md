@@ -12,7 +12,7 @@ A retro pixel-art arena defense shooter with tactical construction, escalating e
 [![Landing page](https://img.shields.io/badge/landing%20page-GitHub%20Pages-2ea44f?style=for-the-badge)](https://drsamonline.github.io/Scrap-and-Gun/)
 [![Release](https://img.shields.io/github/v/release/drsamonline/Scrap-and-Gun?include_prereleases&style=for-the-badge&color=ff4fa3&label=release)](https://github.com/drsamonline/Scrap-and-Gun/releases)
 
-[![License](https://img.shields.io/badge/license-PolyForm%20Noncommercial-blueviolet?style=for-the-badge)](LICENSE)
+[![License: PolyForm Noncommercial 1.0.0](https://img.shields.io/badge/license-PolyForm%20Noncommercial-blueviolet?style=for-the-badge)](LICENSE)
 ![Runtime](https://img.shields.io/badge/runtime-browser%20%2F%20Canvas-1f6feb?style=for-the-badge)
 ![Dependencies](https://img.shields.io/badge/dependencies-none-2ea44f?style=for-the-badge)
 ![Status](https://img.shields.io/badge/status-enhanced%20development-orange?style=for-the-badge)
