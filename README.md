@@ -78,6 +78,8 @@ Then open `http://localhost:8080` for the landing page, or `http://localhost:808
 - **Audio and visual polish:** procedural chiptune, spatialized effects, themes, CRT overlays, pixel font and hit feedback, with pre-rendered sprites (gradient shading, rim light, glow) so the extra detail costs no frame time.
 - **Accessibility and input options:** remappable keys, visual palettes, reduced motion, complete touch controls (movement, aim/fire, building, upgrading, weapon cycling, pause, wave advance) and browser gamepad support.
 - **Responsive HUD:** scales to stay readable on phones (compact two-row build bar and larger touch targets) and fills large displays instead of sitting at a fixed size.
+- **Widescreen and high-DPI:** a 32×16 tile field fills a 16:9 display, and the canvas renders at 2× on large screens so gradients and sprites stay crisp.
+- **Clear main menu:** labelled MAP / MODE / EXTRAS rows with a real PLAY button; every mode — including Rhythm and local co-op — is selectable by mouse or touch.
 - **Offline-ready shell:** optional PWA manifest and service-worker cache.
 
 This is an enhanced development build. Some features are implemented and covered by regression checks, but not every mode, input method, device and interaction has completed hands-on browser QA.

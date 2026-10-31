@@ -1,5 +1,31 @@
 # SCRAP & GUN — Release Audit Notes
 
+## Widescreen, menu and high-DPI pass
+
+- **Widescreen.** The playfield is now 32×16 tiles (1280×720 logical, 16:9) instead of 24×16, so a 1080p display fills completely at 1.5× instead of letterboxing a 4:3 image. Core placement, the Cross and Maze rock layouts, and enemy spawn edges were re-centred for the wider field; pathfinding, build validation and save/restore already worked from the COLS/ROWS constants.
+- **Main menu rebuilt.** The old screen said "CLICK START" without drawing a start button, and Rhythm and Co-op could only be picked with the `R` and `C` keys — unreachable by mouse or touch. The menu now has labelled MAP / MODE / EXTRAS rows, a real PLAY button, visible RHYTHM and CO-OP buttons, and CONTINUE RUN only when a save exists. Drawing and hit-testing share a single `titleLayout()`, so a button cannot drift out of sync with its hit box.
+- **2× rendering.** When the canvas is displayed at or above native size the backing store renders at 2× (2560×1440 for a 1920×1080 window) with all drawing in logical units; sprites, the pre-rendered field and cached text are baked at the same scale. Below that threshold it stays at 1×, so phones pay nothing.
+- The HUD is no longer drawn behind menu screens (it used to bleed through the title overlay).
+- Sub-panels (mutators, tech tree, codex, history, draft, time-loop, settings) are centred on the wider canvas.
+
+### Measured
+45 enemies and 315 particles, median of 7 samples of 120 renders:
+
+| Case | Frame time |
+| --- | --- |
+| 1920×1080, 2× render | 2.99 ms/frame |
+| 1280×800, 1× render | 2.29 ms/frame |
+
+Both far inside the 16.7 ms budget; the 2× pass costs roughly 0.7 ms.
+
+### Verification
+- `node --check` on `game.js`, `game.min.js` and `sw.js`; 82 static feature checks; service-worker scope checks; the 11-check touch suite; the 1,400-frame runtime suite — all pass on both bundles.
+- Every title-menu control was clicked and its resulting state asserted (all three maps, all five modes including Rhythm and Co-op, mutator toggle, tech/codex/history panels, and PLAY).
+- Visual checks at 1920×1080, 1600×900 and 844×390, plus the Cross and Maze maps on the wider field.
+
+### Limits
+Touch input is still verified with emulated events rather than physical devices. The 2× path doubles fill cost, which is fine for this renderer but would matter for a much heavier scene.
+
 ## Graphics and performance pass
 
 Reworked the renderer to improve the art without paying for it in frame time. Measured with a deterministic harness (120 render calls per sample, median of 7, identical entity counts).
