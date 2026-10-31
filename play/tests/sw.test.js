@@ -7,6 +7,6 @@ for (const [name, ok] of Object.entries({
   preservesOtherOriginCaches: /key\.startsWith\(['"]scrap-gun-shell-['"]\)/.test(sw),
   skipsCrossOriginRequests: /new URL\(event\.request\.url\)\.origin !== self\.location\.origin/.test(sw),
   cachesProductionBundle: /game\.min\.js/.test(sw),
-  loadsProductionBundle: /src=['"]game\.min\.js['"]/.test(html)
+  loadsProductionBundle: /src=['"]game\.min\.js(\?[^'"]*)?['"]/.test(html)
 })) if (!ok) throw new Error('Service worker/app-shell check failed: ' + name);
 console.log('SCRAP & GUN service-worker scope checks passed (5 checks).');

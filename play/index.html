@@ -7,7 +7,7 @@
   <meta name="description" content="SCRAP & GUN — build, defend, survive.">
   <link rel="manifest" href="manifest.webmanifest">
   <title>SCRAP &amp; GUN — Enhanced</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=6">
 </head>
 <body>
   <div id="stage">
@@ -21,6 +21,20 @@
     <p>SCRAP &amp; GUN plays in landscape.</p>
     <button id="rotateSkip" type="button">Continue in portrait</button>
   </div>
-  <script src="game.min.js"></script>
+  <script>
+/* Force a service-worker update check on load and reload once when a new worker takes over, so a
+   released build is never masked by a stale cache. */
+(function(){
+  if(!('serviceWorker' in navigator))return;
+  var reloaded=false;
+  navigator.serviceWorker.addEventListener('controllerchange',function(){
+    if(reloaded)return;reloaded=true;location.reload();
+  });
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.getRegistration().then(function(r){if(r)r.update().catch(function(){});}).catch(function(){});
+  });
+})();
+</script>
+  <script src="game.min.js?v=6"></script>
 </body>
 </html>

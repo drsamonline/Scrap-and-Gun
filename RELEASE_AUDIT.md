@@ -1,5 +1,17 @@
 # SCRAP & GUN — Release Audit Notes
 
+## Cache-correctness pass
+
+Repeated reports of "the build is still not widescreen" while the deployed bundle was in fact correct traced to the game's service worker.
+
+- **The shell worker was cache-first**, so a released build could be masked indefinitely by the cached copy; the browser's automatic update check is also throttled, so bumping the cache name alone was not enough.
+- It is now **network-first**: online visitors always receive the current files, and the cache is used only when the network fails (offline play).
+- `index.html` now requests its assets with a **version query** (`styles.css?v=`, `game.min.js?v=`) so a stale worker cannot satisfy them from an older cache entry.
+- The page calls `registration.update()` on load and reloads once when a new worker takes control.
+- The title screen now prints a **build tag** (`BUILD 0.1.6 · 1280x720 · 32x16 TILES`) so the running build and the field dimensions can be confirmed at a glance instead of guessed.
+
+## Widescreen, menu and high-DPI pass
+
 ## Widescreen, menu and high-DPI pass
 
 - **Widescreen.** The playfield is now 32×16 tiles (1280×720 logical, 16:9) instead of 24×16, so a 1080p display fills completely at 1.5× instead of letterboxing a 4:3 image. Core placement, the Cross and Maze rock layouts, and enemy spawn edges were re-centred for the wider field; pathfinding, build validation and save/restore already worked from the COLS/ROWS constants.

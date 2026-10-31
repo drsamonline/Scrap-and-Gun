@@ -15,6 +15,7 @@ const visibleG=g,offscreenCanvas=document.createElement('canvas');
 const W=1280,PH=640,GY=40,TILE=40,COLS=32,ROWS=16;
 // [FEAT-F81] Widescreen: a 32x16 tile field fills a 16:9 canvas. MX centres the legacy 960-wide UI band.
 const MX=(W-960)/2;
+const BUILD='0.1.6';
 let BH=40,hudScale=1,hudCompact=false,buildRects=[],nextRect=null,CH=GY+PH+BH,renderScale=1;
 cv.width=W;cv.height=GY+PH+BH;offscreenCanvas.width=W;offscreenCanvas.height=GY+PH+BH;
 const offscreenG=offscreenCanvas.getContext('2d');g.imageSmoothingEnabled=false;offscreenG.imageSmoothingEnabled=false;
@@ -1275,6 +1276,7 @@ function drawTitle(){
   g.fillStyle=C.gen;g.font='bold 12px monospace';g.fillText('BEST WAVE '+S.best+'   \u00B7   ENDLESS BEST '+(+safeStore.getItem('sg_best_endless')||0),W/2,550);
   g.fillStyle='#ff4fa3';g.font='bold 12px monospace';g.fillText('PROTECT THE CORE \u2014 IF IT FALLS, YOU FALL',W/2,574);
   g.fillStyle='#5a6b80';g.font='11px monospace';g.fillText('WASD MOVE \u00B7 MOUSE AIM \u00B7 SPACE NEXT WAVE \u00B7 ESC PAUSE \u00B7 ENTER PLAY',W/2,602);
+  g.fillStyle='#3a4655';g.font='10px monospace';g.fillText('BUILD '+BUILD+' \u00B7 '+W+'x'+(GY+PH+BH)+' \u00B7 '+COLS+'x'+ROWS+' TILES',W/2,624);
   if(S.screen==='mutators')drawMetaPanel('MUTATORS',[
     ['NO TURRETS','noTurrets','+50% SCRAP'],['ONE LIFE','oneLife','PLAYER HP = CORE HP'],['PISTOL ONLY','pistolOnly','2\u00D7 SCORE'],['SPEEDRUN','speedrun','10s WAVES'],['GLASS CANNON','glassCannon','2\u00D7 PLAYER DAMAGE \u00B7 1/3 HP']]);
   if(S.screen==='tech')drawTechPanel();
