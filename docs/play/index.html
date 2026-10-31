@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#05070a">
+<meta name="description" content="SCRAP &amp; GUN — a retro pixel-art arena defense shooter. Build, defend, survive. Playable in the browser, zero dependencies.">
+<meta property="og:title" content="SCRAP &amp; GUN — Build. Defend. Survive.">
+<meta property="og:description" content="A retro pixel-art arena defense shooter with tactical construction, escalating enemy waves, roguelite drafts, bosses and local co-op. Play in your browser.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="docs/screenshots/title-screen.png">
+<title>SCRAP &amp; GUN — Build. Defend. Survive.</title>
+<link rel="icon" href="play/icon.svg" type="image/svg+xml">
+<style>
+:root{
+  --bg:#05070a; --bg2:#0a0f16; --panel:#101923; --line:#1c2a3a;
+  --ink:#dfe9f3; --dim:#8ea3b8;
+  --teal:#3ee6c4; --pink:#ff4fa3; --gold:#ffcc33; --blue:#4dc3ff;
+  --mono:"Courier New",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg); color:var(--ink); font-family:var(--mono);
+  line-height:1.6; overflow-x:hidden;
+  background-image:radial-gradient(circle at 50% -10%,#12202f 0%,var(--bg) 55%);
+}
+a{color:inherit;text-decoration:none}
+/* ---------- CRT overlays ---------- */
+.fx{position:fixed;inset:0;pointer-events:none;z-index:99}
+.fx.scan{background:repeating-linear-gradient(to bottom,rgba(0,0,0,0) 0 2px,rgba(0,0,0,.16) 3px,rgba(0,0,0,.16) 4px)}
+.fx.vig{background:radial-gradient(ellipse at 50% 40%,rgba(0,0,0,0) 45%,rgba(0,0,0,.75) 100%)}
+.grid{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.35;
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:44px 44px;mask-image:radial-gradient(ellipse at 50% 30%,#000 0%,transparent 75%)}
+main{position:relative;z-index:1}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+/* ---------- hero ---------- */
+header{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:80px 22px;position:relative}
+.kicker{font-size:12px;letter-spacing:.42em;text-transform:uppercase;color:var(--teal);margin-bottom:22px}
+.kicker b{color:var(--dim);font-weight:400}
+h1{
+  font-size:clamp(44px,11vw,132px);line-height:.9;font-weight:700;letter-spacing:.06em;
+  text-transform:uppercase;color:#eaf6ff;
+  text-shadow:
+    3px 0 0 rgba(255,79,163,.85), -3px 0 0 rgba(77,195,255,.85),
+    0 3px 0 rgba(255,204,51,.6),
+    0 0 34px rgba(62,230,196,.45);
+  animation:glitch 6s infinite steps(1);
+}
+@keyframes glitch{
+  0%,92%,100%{transform:translate(0,0)}
+  93%{transform:translate(-2px,1px)}
+  94%{transform:translate(2px,-1px)}
+  95%{transform:translate(-1px,0)}
+  96%{transform:translate(1px,1px)}
+}
+.tagline{margin-top:20px;font-size:clamp(15px,2.4vw,21px);letter-spacing:.3em;text-transform:uppercase;color:var(--gold)}
+.sub{margin:22px auto 0;max-width:640px;color:var(--dim);font-size:15px}
+.badge{display:inline-block;margin-top:24px;border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);background:rgba(255,204,51,.05)}
+.cta{margin-top:34px;display:flex;gap:16px;flex-wrap:wrap;justify-content:center}
+.btn{
+  font-family:var(--mono);font-size:15px;letter-spacing:.18em;text-transform:uppercase;
+  padding:16px 34px;border:2px solid var(--teal);color:var(--teal);background:transparent;
+  cursor:pointer;position:relative;transition:.18s;box-shadow:0 0 24px rgba(62,230,196,.14)
+}
+.btn:hover{background:var(--teal);color:#04120f;box-shadow:0 0 34px rgba(62,230,196,.55)}
+.btn.ghost{border-color:var(--line);color:var(--dim);box-shadow:none}
+.btn.ghost:hover{border-color:var(--blue);color:var(--blue);background:transparent;box-shadow:0 0 24px rgba(77,195,255,.25)}
+.scrollhint{margin-top:46px;font-size:11px;letter-spacing:.3em;color:#4a5b6d;text-transform:uppercase;animation:bob 2.4s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(7px)}}
+/* ---------- ticker ---------- */
+.ticker{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(16,25,35,.5);overflow:hidden;white-space:nowrap}
+.ticker .track{display:inline-block;padding:12px 0;animation:slide 34s linear infinite}
+.ticker span{padding:0 26px;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--dim)}
+.ticker span::before{content:"◆";color:var(--teal);margin-right:10px}
+@keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+/* ---------- sections ---------- */
+section{padding:88px 0;border-bottom:1px solid rgba(28,42,58,.55)}
+h2{font-size:clamp(22px,3.4vw,34px);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px}
+h2 em{color:var(--teal);font-style:normal}
+.lead{color:var(--dim);max-width:760px;margin-bottom:38px;font-size:15px}
+/* shots */
+.shots{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+figure{margin:0;border:1px solid var(--line);background:var(--panel);padding:12px;box-shadow:0 22px 50px rgba(0,0,0,.5)}
+figure img{display:block;width:100%;height:auto;image-rendering:pixelated;border:1px solid #0b141d}
+figcaption{margin-top:10px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
+/* feature grid */
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{border:1px solid var(--line);background:linear-gradient(180deg,rgba(16,25,35,.9),rgba(10,15,22,.9));padding:22px}
+.card h3{font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin-bottom:10px}
+.card p{font-size:13.5px;color:var(--dim)}
+.card .k{display:block;margin-bottom:14px;color:var(--teal)}
+.card .k svg{width:28px;height:28px;display:block}
+/* modes */
+.modes{display:flex;flex-wrap:wrap;gap:12px}
+.chip{border:1px solid var(--line);padding:10px 16px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);background:rgba(16,25,35,.6)}
+.chip b{color:var(--gold)}
+/* controls */
+.keys{display:grid;grid-template-columns:repeat(2,1fr);gap:10px 30px;font-size:13.5px}
+.keys div{display:flex;justify-content:space-between;gap:16px;border-bottom:1px dashed rgba(28,42,58,.7);padding:8px 0}
+.keys span{color:var(--dim)}
+kbd{font-family:var(--mono);background:#0b141d;border:1px solid var(--line);border-bottom-width:2px;border-radius:4px;padding:2px 8px;color:var(--ink);font-size:12px}
+/* note */
+.note{border-left:3px solid var(--gold);background:rgba(255,204,51,.05);padding:18px 22px;color:var(--dim);font-size:13.5px}
+/* footer */
+footer{padding:60px 0 80px;text-align:center;color:var(--dim);font-size:12.5px}
+footer .lic{max-width:720px;margin:0 auto 24px;color:#6f8399}
+footer a{color:var(--teal);border-bottom:1px dotted rgba(62,230,196,.5)}
+footer .links{display:flex;gap:22px;justify-content:center;flex-wrap:wrap;margin-bottom:26px;letter-spacing:.16em;text-transform:uppercase;font-size:11px}
+.foot-title{font-size:22px;letter-spacing:.28em;color:var(--ink);text-transform:uppercase;margin-bottom:14px}
+@media(max-width:760px){
+  .shots,.grid3,.keys{grid-template-columns:1fr}
+  section{padding:64px 0}
+}
+@media(prefers-reduced-motion:reduce){
+  h1,.scrollhint,.ticker .track{animation:none}
+}
+</style>
+<meta name="description" content="SCRAP &amp; GUN — a retro pixel-art arena defense shooter. Build, defend, survive. Playable in the browser, zero dependencies.">
+<link rel="canonical" href="https://drsamonline.github.io/Scrap-and-Gun/play/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Scrap &amp; Gun — live demo">
+<meta property="og:description" content="SCRAP &amp; GUN — a retro pixel-art arena defense shooter. Build, defend, survive. Playable in the browser, zero dependencies.">
+<meta property="og:url" content="https://drsamonline.github.io/Scrap-and-Gun/play/">
+<meta name="twitter:card" content="summary">
+<meta name="robots" content="index, follow">
+</head>
+<body>
+<div class="grid" aria-hidden="true"></div>
+<div class="fx scan" aria-hidden="true"></div>
+<div class="fx vig" aria-hidden="true"></div>
+
+<main>
+  <header class="wrap">
+    <p class="kicker">Dr. Sohil Momin <b>· presents</b></p>
+    <h1>Scrap &amp; Gun</h1>
+    <p class="tagline">Build. Defend. Survive.</p>
+    <p class="sub">A retro pixel-art arena defense shooter with tactical construction, escalating enemy waves, persistent upgrades, roguelite drafts, bosses and local co-op.</p>
+    <span class="badge">Enhanced development build · zero dependencies</span>
+    <div class="cta">
+      <a class="btn" href="play/">▶ Play now</a>
+      <a class="btn ghost" href="https://github.com/drsamonline/Scrap-and-Gun">Source on GitHub</a>
+    </div>
+    <p class="scrollhint">Scroll ↓</p>
+  </header>
+
+  <div class="ticker" aria-hidden="true">
+    <div class="track">
+      <span>Tactical construction</span><span>Walls · Turrets · Tesla · Mortar</span><span>8 enemy archetypes + bosses</span><span>Roguelite drafts</span><span>Time-loop rewind</span><span>Daily seed runs</span><span>Endless mode</span><span>Rhythm mode</span><span>Local co-op</span><span>Tech tree &amp; codex</span><span>Chiptune score</span><span>Offline-ready PWA</span>
+      <span>Tactical construction</span><span>Walls · Turrets · Tesla · Mortar</span><span>8 enemy archetypes + bosses</span><span>Roguelite drafts</span><span>Time-loop rewind</span><span>Daily seed runs</span><span>Endless mode</span><span>Rhythm mode</span><span>Local co-op</span><span>Tech tree &amp; codex</span><span>Chiptune score</span><span>Offline-ready PWA</span>
+    </div>
+  </div>
+
+  <section class="wrap">
+    <h2>Screens <em>from the arena</em></h2>
+    <p class="lead">Captured from the current build in a headless browser at desktop and phone-landscape sizes.</p>
+    <div class="shots">
+      <figure>
+        <img src="docs/screenshots/title-screen.png" alt="SCRAP &amp; GUN title screen">
+        <figcaption>Title screen — pick a mode, review records, resume a run</figcaption>
+      </figure>
+      <figure>
+        <img src="docs/screenshots/gameplay.png" alt="SCRAP &amp; GUN build phase gameplay">
+        <figcaption>Build phase — fortify the core before the wave lands</figcaption>
+      </figure>
+      <figure>
+        <img src="docs/screenshots/combat.png" alt="SCRAP &amp; GUN combat with enemies advancing on the core">
+        <figcaption>Combat — hold the line as the wave closes in</figcaption>
+      </figure>
+      <figure>
+        <img src="docs/screenshots/mobile-landscape.png" alt="SCRAP &amp; GUN on a phone in landscape with on-screen touch controls">
+        <figcaption>On phones — rotate to landscape for full touch controls</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <h2>What you <em>actually do</em></h2>
+    <p class="lead">Hold the line around a single core. Spend scrap on defenses, read the incoming wave, and choose one run-only upgrade each time you clear it.</p>
+    <div class="grid3">
+      <div class="card"><span class="k"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="2" y="7" width="20" height="10"/><path d="M8 7v5M16 7v5M12 12v5M2 12h20"/></svg></span><h3>Build the line</h3><p>Walls, generators, turrets, sniper turrets, Tesla coils and mortars — each with upgrade and refund handling.</p></div>
+      <div class="card"><span class="k"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l3 3M16 16l3 3M19 5l-3 3M8 16l-3 3"/></svg></span><h3>Read the threat</h3><p>Standard, runner, tank, healer, shooter, bomber, shielded and flying enemies, plus rotating boss archetypes.</p></div>
+      <div class="card"><span class="k"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="3" y="3" width="9" height="13" rx="1"/><rect x="12" y="8" width="9" height="13" rx="1"/></svg></span><h3>Draft your run</h3><p>After every cleared wave, pick one of three roguelite upgrades that last only for that run.</p></div>
+      <div class="card"><span class="k"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg></span><h3>Rewind time</h3><p>One free rewind per run. Further rewinds cost a persistent boss core from your meta-progression.</p></div>
+      <div class="card"><span class="k"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V9"/><path d="M12 9a5 5 0 0 1 5-5h3v2a5 5 0 0 1-5 5h-3"/><path d="M12 13a4 4 0 0 0-4-4H5v1a4 4 0 0 0 4 4h3"/></svg></span><h3>Grow forever</h3><p>A tech tree, enemy codex, achievements, run history and local records persist between runs.</p></div>
+      <div class="card"><span class="k"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16 9a4 4 0 0 1 0 6M19 6a8 8 0 0 1 0 12"/></svg></span><h3>Feel it land</h3><p>Procedural chiptune, spatialized effects, CRT overlays, pixel font and hit feedback.</p></div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <h2>Ways to <em>play</em></h2>
+    <p class="lead">Five modes, three maps and selectable mutators — plus a fully remappable control scheme.</p>
+    <div class="modes">
+      <span class="chip"><b>Normal</b> — classic wave defense</span>
+      <span class="chip"><b>Daily Seed</b> — same run for everyone</span>
+      <span class="chip"><b>Endless</b> — no finish line</span>
+      <span class="chip"><b>Rhythm</b> — beat-driven bonus</span>
+      <span class="chip"><b>Local co-op</b> — two players, one screen</span>
+      <span class="chip">Maps: <b>Arena</b> · <b>Cross</b> · <b>Maze</b></span>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <h2>Controls</h2>
+    <p class="lead">Keyboard, mouse, touch and browser gamepad. Everything is remappable in-game.</p>
+    <div class="keys">
+      <div><span>Move</span><span><kbd>WASD</kbd> / arrows</span></div>
+      <div><span>Aim</span><span>Mouse</span></div>
+      <div><span>Fire / place building</span><span>Left-click</span></div>
+      <div><span>Select building</span><span><kbd>1</kbd>–<kbd>6</kbd></span></div>
+      <div><span>Upgrade building</span><span><kbd>Shift</kbd> + click</span></div>
+      <div><span>Cycle weapon</span><span><kbd>Q</kbd> / <kbd>E</kbd></span></div>
+      <div><span>Dash</span><span><kbd>Shift</kbd></span></div>
+      <div><span>Bomb</span><span><kbd>F</kbd></span></div>
+      <div><span>Advance wave</span><span>Hold <kbd>Space</kbd> 0.5s</span></div>
+      <div><span>Pause / mute / fullscreen</span><span><kbd>Esc</kbd> / <kbd>M</kbd> / <kbd>F11</kbd></span></div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <h2>Before you <em>judge it</em></h2>
+    <div class="note">
+      This is an enhanced development build. Core systems are implemented and covered by static and simulated-runtime regression checks, but not every mode, input method, device and interaction has completed hands-on browser QA. The screenshots above are captured from the current build in a headless browser rather than from a live interactive session. See the repository's testing notes for the outstanding manual checklist.
+    </div>
+  </section>
+
+  <footer class="wrap">
+    <p class="foot-title">Scrap &amp; Gun</p>
+    <div class="links">
+      <a href="play/">Play</a>
+      <a href="https://github.com/drsamonline/Scrap-and-Gun">GitHub</a>
+      <a href="https://github.com/drsamonline/Scrap-and-Gun/blob/main/README.md">README</a>
+      <a href="https://github.com/drsamonline/Scrap-and-Gun/blob/main/docs/ARCHITECTURE.md">Docs</a>
+      <a href="https://github.com/drsamonline/Scrap-and-Gun/blob/main/RELEASE_AUDIT.md">Release audit</a>
+    </div>
+    <p class="lic">
+      Licensed under the <b>PolyForm Noncommercial License 1.0.0</b>. Use, modification and redistribution are permitted only for permitted noncommercial purposes. <b>Commercial use is not granted by this license</b> — arrange a separate commercial license before selling, monetizing or bundling this game in a commercial product. This notice is a summary, not legal advice.
+    </p>
+    <p>Required Notice: Copyright © 2026 Dr. Sohil Momin.</p>
+  </footer>
+</main>
+<script>
+/* Retire a legacy root-scoped service worker from an earlier release that could serve a cached
+   copy of the game at this URL instead of the landing page. Only root-scoped registrations are
+   removed; the game's own worker lives under /play/ and is left untouched. */
+(function () {
+  if (!('serviceWorker' in navigator)) return;
+  var root = new URL('./', location.href).pathname;
+  navigator.serviceWorker.getRegistrations().then(function (regs) {
+    regs.forEach(function (reg) {
+      try {
+        if (new URL(reg.scope).pathname === root) reg.unregister().catch(function () {});
+      } catch (e) {}
+    });
+  }).catch(function () {});
+})();
+</script>
+</body>
+</html>
