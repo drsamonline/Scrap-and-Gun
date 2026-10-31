@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scrap &amp; Gun — SCRAP &amp; GUN — a retro pixel-art arena defense shooter. Build, defend, survive. Playable in the browser, zero dependencies.</title>
+<meta name="description" content="SCRAP &amp; GUN — a retro pixel-art arena defense shooter. Build, defend, survive. Playable in the browser, zero dependencies.">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<meta name="theme-color" content="hsl(303 76% 63%)">
+<meta name="author" content="Dr Sohil Momin">
+<meta name="keywords" content="Scrap &amp; Gun, offline app, single-file app, no account, SCRAP &amp; GUN — a retro pixel-art arena defense shooter. B">
+<link rel="canonical" href="https://drsamonline.github.io/Scrap-and-Gun/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="drsamonline">
+<meta property="og:title" content="Scrap &amp; Gun — SCRAP &amp; GUN — a retro pixel-art arena defense shooter. Build, defend, survive. Playable in the browser, zero dependencies.">
+<meta property="og:description" content="SCRAP &amp; GUN — a retro pixel-art arena defense shooter. Build, defend, survive. Playable in the browser, zero dependencies.">
+<meta property="og:url" content="https://drsamonline.github.io/Scrap-and-Gun/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Scrap &amp; Gun — SCRAP &amp; GUN — a retro pixel-art arena defense shooter. Build, defend, survive. Playable in the browser, zero dependencies.">
+<meta name="twitter:description" content="SCRAP &amp; GUN — a retro pixel-art arena defense shooter. Build, defend, survive. Playable in the browser, zero dependencies.">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Scrap &amp; Gun", "description": "SCRAP &amp; GUN — a retro pixel-art arena defense shooter. Build, defend, survive. Playable in the browser, zero dependencies.", "url": "https://drsamonline.github.io/Scrap-and-Gun/", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Windows, Android, Linux, any modern browser", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "INR"}, "license": "https://opensource.org/licenses/MIT", "author": {"@type": "Person", "name": "Dr Sohil Momin", "url": "https://drsamonline.github.io/"}, "isAccessibleForFree": true}</script>
+<link rel="icon" href="play/icon.svg" type="image/svg+xml">
+<style>
+:root{--bg:hsl(303 26% 11%);--card:hsl(303 22% 17%);--ink:hsl(303 24% 94%);--mut:hsl(303 24% 94%)99;--line:hsl(303 24% 94%)1f;--acc:hsl(303 76% 63%);--on:hsl(303 60% 8%);--r:20px}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.62 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.wrap{max-width:980px;margin:0 auto;padding:24px}
+h1{font-size:clamp(1.8rem,5vw,3.4rem);margin:0 0 10px;line-height:1.1;letter-spacing:-.01em}
+.tag{color:var(--acc);font-weight:700;letter-spacing:.05em;text-transform:uppercase;font-size:.78rem;margin:0 0 8px}
+.lead{color:var(--mut);font-size:1.06rem;margin:0 0 4px}
+.lead.big{font-size:1.25rem;max-width:60ch}
+.hero{padding:64px 0 30px}
+.hero.center{text-align:center} .hero.center .lead{max-width:620px;margin:0 auto}
+.hero.center .cta{justify-content:center}
+.hero.split{display:grid;gap:28px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));align-items:center;padding-top:44px}
+.hero.left{text-align:left;max-width:44rem} .hero.left.tight{padding-bottom:14px}
+.hero.magazine{padding:72px 0 34px;max-width:52rem}
+.hero.minimal{padding:80px 0 26px;text-align:left}
+.hero-art img,.hero-art .blob{width:100%;border-radius:var(--r);display:block}
+.hero-art .blob{aspect-ratio:4/3;background:linear-gradient(135deg,var(--acc)55,transparent);border:1px solid var(--line)}
+.cta{display:flex;gap:10px;flex-wrap:wrap;margin:24px 0 6px}
+.btn{display:inline-block;border:1px solid var(--line);border-radius:calc(var(--r) - 2px);padding:11px 18px;color:var(--ink);text-decoration:none;font-weight:600}
+.btn.primary{background:var(--acc);color:var(--on);border-color:transparent}
+.btn:hover{border-color:var(--acc)}
+section{padding:40px 0;border-top:1px solid var(--line)}
+h2{font-size:1.22rem;margin:0 0 14px}
+ul.features{list-style:none;padding:0;margin:0;display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.lay-magazine ul.features{grid-template-columns:1fr}
+ul.features li{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px}
+ul.features li b{display:block} ul.features li span{color:var(--mut);font-size:.95rem}
+figure{margin:0} figure img{width:100%;border:1px solid var(--line);border-radius:var(--r);display:block}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px}
+.card h3{margin:0 0 6px;font-size:1rem} .card p{margin:0;color:var(--mut);font-size:.93rem}
+code{background:var(--line);border-radius:5px;padding:1px 5px;font-size:.9em}
+footer{padding:28px 0 60px;color:var(--mut);font-size:.9rem;border-top:1px solid var(--line)}
+a{color:var(--acc)}
+@media(prefers-reduced-motion:no-preference){.hero,.cta{animation:in .5s ease-out both}@keyframes in{from{opacity:0;transform:translateY(6px)}}}
+</style>
+</head>
+<body class="lay-magazine den-airy">
+<div class="wrap">
+  <header class="hero magazine">
+    <p class="tag">Offline · single file · no tracking</p>
+    <h1>Scrap &amp; Gun</h1><p class="lead big">SCRAP &amp; GUN — a retro pixel-art arena defense shooter. Build, defend, survive. Playable in the browser, zero dependencies.</p>
+    <div class="cta"><a class="btn primary" href="https://github.com/drsamonline/Scrap-and-Gun/releases/latest/download/Scrap-and-Gun-portable.exe">Windows (.exe)</a>
+      <a class="btn" href="https://github.com/drsamonline/Scrap-and-Gun/releases/latest/download/Scrap-and-Gun.apk">Android (.apk)</a>
+      <a class="btn" href="https://drsamonline.github.io/Scrap-and-Gun/play/">Open the live demo</a></div>
+  </header>
+
+  <section>
+    <h2>What it does</h2>
+    <ul class="features">
+      <li><b>Offline</b><span>No server, no account, no tracking.</span></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Three ways to run it</h2>
+    <div class="grid">
+      <div class="card"><h3>In the browser</h3><p>Open the <a href="https://drsamonline.github.io/Scrap-and-Gun/play/play/">live demo</a> — nothing to install.</p></div>
+      <div class="card"><h3>As an app</h3><p>The Windows <code>.exe</code> and the Android <code>.apk</code> are portable: no installer, no admin rights. There is also a Linux binary in the release.</p></div>
+      <div class="card"><h3>From the source</h3><p>It is one HTML file. Download it, open it, done — there is no build step.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Privacy</h2>
+    <p>Everything stays on your device. There is no server, no account, and the page forbids outbound requests, so there is nowhere for your data to go. </p>
+  </section>
+
+  <footer>
+    <p><b>Scrap &amp; Gun</b> — built by <a href="https://drsamonline.github.io/">Dr Sohil Momin</a>. MIT licensed. Part of the <a href="https://drsamonline.github.io/">drsamonline</a> collection.</p>
+    <p><a href="https://github.com/drsamonline/Scrap-and-Gun/releases">All releases</a> · <a href="https://drsamonline.github.io/Scrap-and-Gun/play/">Live demo</a> · <a href="https://drsamonline.github.io/">All projects</a></p>
+  </footer>
+</div>
+</body>
+</html>
