@@ -1,5 +1,28 @@
 # SCRAP & GUN — Release Audit Notes
 
+## Responsive HUD and control pass
+
+Audited the HUD and controls at seven real viewport sizes (1920×1080, 1440×900, 1366×768, 1024×768, 844×390, 667×375 and 390×844 portrait), driving the game with keyboard, mouse and synthesised multi-touch, and fixed the following:
+
+- **Large screens wasted half the display.** Scaling was integer-only, so a 1080p monitor showed the game at 960×720 (50% of the width). Scaling now fills the viewport at 4:3 — 1440×1080 on a 1080p screen, 1024×768 on a 1366×768 laptop.
+- **The HUD was unreadable on phones.** The whole 960×720 layout was scaled to ~0.52, so 12px HUD text rendered at ~6 CSS px. HUD sizes are now expressed in CSS pixels and multiplied by 1/scale, so they keep a readable physical size; a compact layout and a taller (64px) build bar switch in below ~0.9 scale.
+- **The build bar was unusable on phones.** Six 98px slots with full names became illegible. On small screens it is now a two-row, three-column grid with larger text, plus a dedicated `NEXT` / combat-status column.
+- **HUD collisions.** The scrap counter and weapon label crowded each other; the score line overlapped the core bar; the build-phase status overlapped the widened slots. All text is now laid out from measured widths with a max-width guard, and the status text shortens when space is tight.
+- **Touch controls were too small and mis-aligned.** Buttons were 25px-radius circles with rectangular hit zones that did not match them, and the desktop ability box (DASH/BOMB/weapon) overlapped the movement stick. The ability box is now hidden on touch, buttons are larger (50px fire, 36px dash/bomb, 62px stick), and hit-testing uses the same circles that are drawn.
+- **Two mechanics were unreachable on touch.** Weapon cycling and building upgrades had no touch input at all. Tapping the weapon chip cycles weapons, and tapping a placed building (with nothing selected) upgrades it.
+- The pause menu now scales with the HUD and is centred in the play area.
+
+### Verification
+- `node --check game.js` / `game.min.js` / `sw.js` — passed.
+- `node tests/sw.test.js` — passed (5 checks).
+- `node tests/smoke.test.js` — passed (80 static feature checks).
+- `node tests/touch.test.js` — passed (11 checks), now including weapon cycling and tap-to-upgrade.
+- `node tests/runtime-smoke.test.js game.js` and `… game.min.js` — passed (1,400 simulated frames plus save/load and time-loop assertions).
+- Live headless Chromium at 1920×1080, 1366×768, 1024×768, 844×390, 667×375 and 390×844 — HUD legible at every size, build → place → upgrade → next wave → pause verified with no console or page errors.
+
+### Remaining limits
+The title, settings, tech-tree and codex screens are still drawn at their original fixed sizes; they remain legible but do not scale like the in-game HUD. Touch input is verified with emulated events in Chromium, not on physical iOS/Android hardware.
+
 ## Mobile playability and rendering pass
 
 Audited the game in a real headless Chromium at mobile portrait, mobile landscape and desktop viewports, driving it with keyboard and synthesised multi-touch input. Fixed the following real play defects:

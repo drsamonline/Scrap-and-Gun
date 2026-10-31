@@ -33,7 +33,9 @@
 | Dash / Bomb | `DASH` / `BOMB` buttons at the bottom right |
 | Select a building | Tap a slot in the bottom build bar |
 | Place the selected building | Tap a tile on the field; tap the slot again to cancel |
-| Skip the build phase | `NEXT >` button in the bottom bar |
+| Upgrade a building | Tap the building on the field (with no building selected) |
+| Cycle weapon | Tap the weapon chip in the top bar |
+| Skip the build phase | `NEXT` button in the bottom bar |
 | Pause | Button at the top left of the HUD |
 
 Rotate the device to landscape to play. In portrait a rotate prompt appears with a "Continue in portrait" option. Touch menus (title, pause, settings, draft, time-loop) respond to taps.

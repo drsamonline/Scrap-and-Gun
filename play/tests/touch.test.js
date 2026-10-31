@@ -2,12 +2,12 @@
 const fs=require('fs'),path=require('path'),vm=require('vm');
 const srcPath=path.join(__dirname,'..','game.js');
 const rawSource=fs.readFileSync(srcPath,'utf8');
-const injection=`globalThis.__t={st:()=>({screen:S.screen,phase:S.phase,buildSel,scrap:S.scrap,B:B.length,msg:S.msg,aim:touchAim?{x:touchAim.x,y:touchAim.y}:null,pend:!!pendingPlace,mouse:{x:mouse.x,y:mouse.y}})};`;
+const injection=`globalThis.__t={st:()=>({screen:S.screen,phase:S.phase,buildSel,scrap:S.scrap,B:B.length,msg:S.msg,aim:touchAim?{x:touchAim.x,y:touchAim.y}:null,pend:!!pendingPlace,mouse:{x:mouse.x,y:mouse.y}}),rects:()=>buildRects.map(r=>({x:r.x,y:r.y,w:r.w,h:r.h,i:r.i})),weapon:()=>WPN[P.weapon].name,wpn:()=>wpnRect,lvl:(c,r)=>(grid[r]&&grid[r][c]?grid[r][c].level:0)};`;
 const source=rawSource.replace(/resetGame\(\);requestAnimationFrame\(loop\);\s*\}\)\(\);/,'resetGame();requestAnimationFrame(loop);'+injection+'})();');
 if(source===rawSource)throw new Error('injection failed');
 const events={};const errors=[];const noop=()=>{};
 function ctx2d(){const base={measureText:t=>({width:String(t).length*7}),createRadialGradient:()=>({addColorStop:noop}),createLinearGradient:()=>({addColorStop:noop}),createPattern:()=>null};return new Proxy(base,{get(o,k){return k in o?o[k]:noop;},set(o,k,v){o[k]=v;return true;}});}
-const canvas={width:960,height:720,style:{},getContext:()=>ctx2d(),addEventListener:(n,f)=>((events['canvas:'+n]||=[]).push(f)),getBoundingClientRect:()=>({left:0,top:0,width:960,height:720})};
+const canvas={width:960,height:720,style:{},getContext:()=>ctx2d(),addEventListener:(n,f)=>((events['canvas:'+n]||=[]).push(f)),getBoundingClientRect:()=>({left:0,top:0,width:canvas.width,height:canvas.height})};
 const scan={style:{}};
 const localStorage={getItem:()=>null,setItem:noop,removeItem:noop};
 const document={hidden:false,fullscreenElement:null,documentElement:{requestFullscreen:()=>Promise.resolve()},getElementById:id=>id==='game'?canvas:id==='scan'?scan:null,createElement:t=>t==='canvas'?{width:0,height:0,style:{},getContext:()=>ctx2d()}:{},addEventListener:(n,f)=>((events['document:'+n]||=[]).push(f))};
@@ -23,6 +23,8 @@ let now=16;frames.shift()(now);
 dispatch('window:keydown',key('Enter'));           // start a run
 frames.shift()(now+=16);
 const st=()=>sandbox.__t.st();
+const wallR=sandbox.__t.rects().find(r=>r.i===1);
+const wx=wallR.x+wallR.w/2, wy=wallR.y+wallR.h/2;
 const results=[];
 function check(name,cond,extra){results.push({name,ok:!!cond,extra});}
 
@@ -30,9 +32,9 @@ check('screen playing',st().screen==='playing',st().screen);
 const scrap0=st().scrap, B0=st().B;
 
 // 1) tap the WALL slot in the build bar
-dispatch('canvas:touchstart',{preventDefault:noop,changedTouches:[touch(1,166,700)]});
+dispatch('canvas:touchstart',{preventDefault:noop,changedTouches:[touch(1,wx,wy)]});
 check('slot tap selects wall',st().buildSel==='wall',st().buildSel);
-dispatch('canvas:touchend',{changedTouches:[touch(1,166,700)]});
+dispatch('canvas:touchend',{changedTouches:[touch(1,wx,wy)]});
 
 // 2) tap an empty field tile -> place
 dispatch('canvas:touchstart',{preventDefault:noop,changedTouches:[touch(2,200,300)]});
@@ -48,9 +50,9 @@ dispatch('canvas:touchend',{changedTouches:[touch(21,200,300)]});
 check('occupied tile reports cannot place',st().msg==='CANNOT PLACE HERE',st().msg);
 
 // 3) tap slot again -> deselect
-dispatch('canvas:touchstart',{preventDefault:noop,changedTouches:[touch(3,166,700)]});
+dispatch('canvas:touchstart',{preventDefault:noop,changedTouches:[touch(3,wx,wy)]});
 check('slot tap toggles off',st().buildSel===null,st().buildSel);
-dispatch('canvas:touchend',{changedTouches:[touch(3,166,700)]});
+dispatch('canvas:touchend',{changedTouches:[touch(3,wx,wy)]});
 
 // 4) aim anchor: touch right half away from the button, then drag a little
 dispatch('canvas:touchstart',{preventDefault:noop,changedTouches:[touch(4,700,300)]});
@@ -58,10 +60,23 @@ dispatch('canvas:touchmove',{preventDefault:noop,changedTouches:[touch(4,745,300
 check('aim is relative to touch origin',st().aim&&st().aim.x===1,JSON.stringify(st().aim));
 dispatch('canvas:touchend',{changedTouches:[touch(4,745,300)]});
 
-// 5) pause button
-dispatch('canvas:touchstart',{preventDefault:noop,changedTouches:[touch(5,25,20)]});
+// 6) tapping the weapon chip cycles the weapon
+const wpnBefore=sandbox.__t.weapon();
+const wr=sandbox.__t.wpn();
+dispatch('canvas:touchstart',{preventDefault:noop,changedTouches:[touch(6,wr.x+wr.w/2,wr.y+wr.h/2)]});
+check('weapon chip cycles weapon',sandbox.__t.weapon()!==wpnBefore,wpnBefore+' -> '+sandbox.__t.weapon());
+dispatch('canvas:touchend',{changedTouches:[touch(6,wr.x+wr.w/2,wr.y+wr.h/2)]});
+
+// 7) tapping a placed building upgrades it (wall was placed at tile 5,6 earlier)
+const lvlBefore=sandbox.__t.lvl(5,6);
+dispatch('canvas:touchstart',{preventDefault:noop,changedTouches:[touch(7,200,300)]});
+dispatch('canvas:touchend',{changedTouches:[touch(7,200,300)]});
+check('tap a building upgrades it',sandbox.__t.lvl(5,6)===lvlBefore+1,'level '+lvlBefore+' -> '+sandbox.__t.lvl(5,6));
+
+// 8) pause button (last: it changes the screen)
+dispatch('canvas:touchstart',{preventDefault:noop,changedTouches:[touch(8,25,20)]});
 check('pause button pauses',st().screen==='paused',st().screen);
-dispatch('canvas:touchend',{changedTouches:[touch(5,25,20)]});
+dispatch('canvas:touchend',{changedTouches:[touch(8,25,20)]});
 
 let bad=0;
 for(const r of results){if(!r.ok)bad++;console.log((r.ok?'PASS':'FAIL')+' - '+r.name+(r.ok?'':'  ['+r.extra+']'));}

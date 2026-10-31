@@ -15,7 +15,7 @@ node tests/runtime-smoke.test.js game.js
 node tests/runtime-smoke.test.js game.min.js
 ```
 
-The touch suite runs the game in a simulated touch-capable DOM and asserts build-slot selection, tap-to-place, occupied-tile rejection, relative aiming and the pause button. The static suite checks expected feature markers in readable source and app-shell wiring. The runtime suite runs the game in a lightweight simulated DOM/canvas, advances 1,400 frames, exercises co-op input, and verifies save/restore and time-loop accounting. These are regression smoke tests, not full end-to-end browser automation.
+The touch suite runs the game in a simulated touch-capable DOM and asserts build-slot selection, tap-to-place, occupied-tile rejection, relative aiming, weapon cycling, tap-to-upgrade and the pause button. The static suite checks expected feature markers in readable source and app-shell wiring. The runtime suite runs the game in a lightweight simulated DOM/canvas, advances 1,400 frames, exercises co-op input, and verifies save/restore and time-loop accounting. These are regression smoke tests, not full end-to-end browser automation.
 
 ## Manual browser release checklist
 
