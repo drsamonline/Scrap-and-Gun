@@ -75,7 +75,7 @@ Then open `http://localhost:8080` for the landing page, or `http://localhost:808
 - **Persistent progression:** tech tree, enemy codex, achievements, run history and local records.
 - **Roguelite upgrades:** choose one of three run-only upgrades after a cleared wave.
 - **Time-loop rewind:** one free rewind per run; subsequent successful rewinds consume a persistent boss core.
-- **Audio and visual polish:** procedural chiptune, spatialized effects, themes, CRT overlays, pixel font and hit feedback.
+- **Audio and visual polish:** procedural chiptune, spatialized effects, themes, CRT overlays, pixel font and hit feedback, with pre-rendered sprites (gradient shading, rim light, glow) so the extra detail costs no frame time.
 - **Accessibility and input options:** remappable keys, visual palettes, reduced motion, complete touch controls (movement, aim/fire, building, upgrading, weapon cycling, pause, wave advance) and browser gamepad support.
 - **Responsive HUD:** scales to stay readable on phones (compact two-row build bar and larger touch targets) and fills large displays instead of sitting at a fixed size.
 - **Offline-ready shell:** optional PWA manifest and service-worker cache.

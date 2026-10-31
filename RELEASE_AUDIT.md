@@ -1,5 +1,35 @@
 # SCRAP & GUN — Release Audit Notes
 
+## Graphics and performance pass
+
+Reworked the renderer to improve the art without paying for it in frame time. Measured with a deterministic harness (120 render calls per sample, median of 7, identical entity counts).
+
+- **The static field is pre-rendered.** The checkerboard, grid, floor decals and a baked vignette plus edge frame are drawn once into an offscreen canvas and blitted each frame. `drawField` went from roughly 2 ms to about 0.004 ms per frame.
+- **Baked sprites.** Enemies, bullets, the player glow and the core glow are rasterised once into offscreen canvases and rebuilt only when the theme changes. Enemies gained radial-gradient shading, a rim light and a softer silhouette; bullets and the core gained real glow instead of flat fills.
+- **Removed per-frame `shadowBlur`** from the core and player in favour of pre-rendered glow sprites. `shadowBlur` is one of the most expensive Canvas 2D operations.
+- **Cached pixel-font text.** Each string is rasterised once per (text, size, colour, alignment) and blitted, instead of drawing every glyph pixel as its own `fillRect`. The HUD and menus are text-heavy, so this removed thousands of draw calls per frame.
+- Sprite caches invalidate on theme or palette change; the text cache is capped at 420 entries.
+
+### Measured (same harness, 45 enemies and 315 particles)
+
+| Case | Before | After | Change |
+| --- | --- | --- | --- |
+| Idle (no entities) | 2.03 ms/frame | 1.61 ms/frame | ~21% faster |
+| Loaded (45 enemies) | 3.29 ms/frame | 2.84 ms/frame | ~14% faster |
+| Worst single frame | 2.80 ms | 1.61 ms | ~1.7× better |
+
+All well inside a 16.7 ms 60 fps budget, so the headroom went into art rather than being spent.
+
+### Verification
+- `node --check game.js` / `game.min.js` / `sw.js` — passed.
+- `node tests/smoke.test.js` — passed (82 static feature checks, including the new baked-field and sprite-cache markers).
+- `node tests/sw.test.js`, `node tests/touch.test.js` — passed.
+- `node tests/runtime-smoke.test.js game.js` and `… game.min.js` — passed (1,400 frames plus save/load and time-loop assertions).
+- Visual check in headless Chromium at desktop and phone-landscape sizes: text, HUD, menus, enemies, core and bullets all render correctly after the caching changes.
+
+### Limits
+Sprites are baked at 1× logical resolution, so the art is pixel-consistent but not high-DPI; the game still renders at a 960×720 logical canvas.
+
 ## Responsive HUD and control pass
 
 Audited the HUD and controls at seven real viewport sizes (1920×1080, 1440×900, 1366×768, 1024×768, 844×390, 667×375 and 390×844 portrait), driving the game with keyboard, mouse and synthesised multi-touch, and fixed the following:
