@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://drsamonline.github.io/Scrap-and-Gun//sitemap.xml
