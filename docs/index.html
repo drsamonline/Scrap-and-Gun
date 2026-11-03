@@ -56,6 +56,18 @@ code{background:var(--line);border-radius:5px;padding:1px 5px;font-size:.9em}
 footer{padding:28px 0 60px;color:var(--mut);font-size:.9rem;border-top:1px solid var(--line)}
 a{color:var(--acc)}
 @media(prefers-reduced-motion:no-preference){.hero,.cta{animation:in .5s ease-out both}@keyframes in{from{opacity:0;transform:translateY(6px)}}}
+
+  /* ---------- light theme ----------
+     Added so the page reads on paper. It overrides the page's own variables and
+     nothing else — no markup, no layout, no type. */
+  :root, html {
+    color-scheme: light;
+    --bg: #f7f6f2;
+    --card: #ffffff;
+    --ink: #14161a;
+    --mut: #5c6470;
+    --line: #e2ddd2;
+  }
 </style>
 </head>
 <body class="lay-magazine den-airy">
