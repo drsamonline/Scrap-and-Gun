@@ -155,7 +155,9 @@ footer .links{display:flex;gap:22px;justify-content:center;flex-wrap:wrap;margin
     cursor:pointer;opacity:.8;
   }
   .theme-btn:hover{opacity:1}
-  .theme-btn-top{float:right;margin:2px 0 0 10px}
+  /* this page's header is a full-height centred hero, so a float becomes a flex item
+     and lands in the middle of the composition. Pin it to the hero's corner. */
+  .theme-btn-top{position:absolute;top:20px;right:22px;float:none;margin:0}
   .theme-btn svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round}
   .theme-btn:hover{opacity:1}
   .theme-btn svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round}
