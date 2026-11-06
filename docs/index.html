@@ -116,6 +116,38 @@ footer .links{display:flex;gap:22px;justify-content:center;flex-wrap:wrap;margin
 @media(prefers-reduced-motion:reduce){
   h1,.scrollhint,.ticker .track{animation:none}
 }
+
+  /* ---- light theme ------------------------------------------------------
+     The neon accents are the hard part: #3ee6c4 and #ffcc33 are legible on #05070a
+     and vanish on #f4f6f9. Every accent here is the same hue, taken darker until it
+     holds contrast against the light ground; nothing is inverted. */
+  :root[data-theme="light"]{
+    color-scheme: light;
+    --bg:#f4f6f9; --bg2:#e8edf4; --panel:#ffffff; --line:#c9d5e2;
+    --ink:#0d1620; --dim:#4a5c6e;
+    --teal:#0b8f7a; --pink:#c2185b; --gold:#8a6200; --blue:#0b6ea8;
+  }
+  :root[data-theme="light"] body{
+    background-image:radial-gradient(circle at 50% -10%,#ffffff 0%,var(--bg) 55%);
+  }
+  /* The CRT layer is built for a black screen. Scanlines of rgba(0,0,0,.16) over a
+     light page are grey stripes, and the vignette paints the edges charcoal, so the
+     light theme keeps the glitch but drops the tube. */
+  :root[data-theme="light"] .fx.scan{display:none}
+  :root[data-theme="light"] .fx.vig{background:radial-gradient(ellipse at 50% 40%,rgba(0,0,0,0) 55%,rgba(13,22,32,.10) 100%)}
+  /* The title's chromatic aberration is white text with pink and cyan shadows - it
+     disappears on a light ground. Same effect, ink text, accents at low alpha. */
+  :root[data-theme="light"] h1{
+    color:var(--ink);
+    text-shadow:2px 0 0 rgba(194,24,91,.38), -2px 0 0 rgba(11,110,168,.38),
+                0 2px 0 rgba(138,98,0,.30), 0 0 26px rgba(11,143,122,.18);
+  }
+  .theme-btn{
+    position:fixed;top:14px;right:14px;z-index:90;display:inline-flex;align-items:center;gap:6px;
+    background:var(--panel);color:var(--dim);border:1px solid var(--line);border-radius:999px;
+    padding:6px 12px;font-family:inherit;font-size:12px;cursor:pointer;line-height:1;
+  }
+  .theme-btn:hover{color:var(--ink)}
 </style>
 <meta name="description" content="SCRAP &amp; GUN — a retro pixel-art arena defense shooter. Build, defend, survive. Playable in the browser, zero dependencies.">
 <link rel="canonical" href="https://drsamonline.github.io/Scrap-and-Gun/play/">
@@ -125,6 +157,16 @@ footer .links{display:flex;gap:22px;justify-content:center;flex-wrap:wrap;margin
 <meta property="og:url" content="https://drsamonline.github.io/Scrap-and-Gun/play/">
 <meta name="twitter:card" content="summary">
 <meta name="robots" content="index, follow">
+<script>
+/* The page is dark by design, so DARK is the default and light is the option - not the
+   other way round. A stored choice wins; nothing here flips the page after it paints. */
+(function () {
+  try {
+    var s = localStorage.getItem("theme");
+    document.documentElement.setAttribute("data-theme", s === "light" ? "light" : "dark");
+  } catch (e) { document.documentElement.setAttribute("data-theme", "dark"); }
+})();
+</script>
 </head>
 <body>
 <div class="grid" aria-hidden="true"></div>
@@ -132,6 +174,9 @@ footer .links{display:flex;gap:22px;justify-content:center;flex-wrap:wrap;margin
 <div class="fx vig" aria-hidden="true"></div>
 
 <main>
+  <button class="theme-btn ghost" id="themeBtn" type="button" aria-label="Switch theme">
+    <span id="themeLabel">Light</span>
+  </button>
   <header class="wrap">
     <p class="kicker">Dr. Sohil Momin <b>· presents</b></p>
     <h1>Scrap &amp; Gun</h1>
@@ -272,5 +317,23 @@ footer .links{display:flex;gap:22px;justify-content:center;flex-wrap:wrap;margin
   .card,[class*="card"]{border-radius:4px !important}
   button:not(.ghost):not(.tab){background:var(--acc) !important}
 </style>
+<script>
+(function () {
+  var btn = document.getElementById("themeBtn"), label = document.getElementById("themeLabel");
+  function sync() {
+    var light = document.documentElement.getAttribute("data-theme") === "light";
+    label.textContent = light ? "Dark" : "Light";
+    btn.setAttribute("aria-pressed", String(light));
+  }
+  btn.addEventListener("click", function () {
+    var light = document.documentElement.getAttribute("data-theme") === "light";
+    var next = light ? "dark" : "light";
+    document.documentElement.setAttribute("data-theme", next);
+    try { localStorage.setItem("theme", next); } catch (e) {}
+    sync();
+  });
+  sync();
+})();
+</script>
 </body>
 </html>
