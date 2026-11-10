@@ -3,7 +3,14 @@ const path = require('path');
 const jsFile = process.argv[2] || 'game.js';
 // Feature labels/comments are intentionally removed from production minification; use source for static inventory checks.
 const js = fs.readFileSync(path.join(__dirname, '..', jsFile === 'game.min.js' ? 'game.js' : jsFile), 'utf8');
-const html = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
+// The page moved: the source lives in play/, the deployed copy in docs/play/.
+// These tests still read play/index.html, which has not existed since the split,
+// so they have been failing on a missing file rather than checking anything.
+const htmlPath = [path.join(__dirname, '..', 'index.html'),
+                  path.join(__dirname, '..', '..', 'docs', 'play', 'index.html')]
+  .find((p) => fs.existsSync(p));
+if (!htmlPath) throw new Error('no app page found: neither play/index.html nor docs/play/index.html');
+const html = fs.readFileSync(htmlPath, 'utf8');
 const features = {
   AStar: 'findPathAStar',
   objectPooling: 'class PooledArray',

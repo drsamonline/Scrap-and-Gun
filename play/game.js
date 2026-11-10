@@ -15,7 +15,7 @@ const visibleG=g,offscreenCanvas=document.createElement('canvas');
 const W=1280,PH=640,GY=40,TILE=40,COLS=32,ROWS=16;
 // [FEAT-F81] Widescreen: a 32x16 tile field fills a 16:9 canvas. MX centres the legacy 960-wide UI band.
 const MX=(W-960)/2;
-const BUILD='0.1.6';
+const BUILD='0.2.0';
 let BH=40,hudScale=1,hudCompact=false,buildRects=[],nextRect=null,CH=GY+PH+BH,renderScale=1;
 cv.width=W;cv.height=GY+PH+BH;offscreenCanvas.width=W;offscreenCanvas.height=GY+PH+BH;
 const offscreenG=offscreenCanvas.getContext('2d');g.imageSmoothingEnabled=false;offscreenG.imageSmoothingEnabled=false;

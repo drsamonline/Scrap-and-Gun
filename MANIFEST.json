@@ -3,23 +3,65 @@
   "locked": false,
   "files": {
     "README.md": {
-      "sha": "fc31bac6904f4060e5f0506ebe4b699ecc78ca2b",
-      "producer": "bootstrap@2026-11-04",
-      "class": "generated",
-      "at": "2026-11-04T19:39:19Z"
+      "sha": "ad1917a97672bface04140b3c74c1bade0577f78",
+      "producer": "audit-2026-11-10",
+      "class": "agent",
+      "at": "2026-11-10T12:36:02Z"
     },
     "docs/index.html": {
-      "sha": "6377e4796278775447a266a73fc7f3c7cbc06d66",
-      "producer": "bootstrap@2026-11-04",
-      "class": "generated",
-      "at": "2026-11-06T19:04:49Z"
+      "sha": "7b89d27d8c93762250b301dec298c7f6a4074156",
+      "producer": "audit-2026-11-10",
+      "class": "agent",
+      "at": "2026-11-10T12:36:02Z"
     },
     "docs/play/index.html": {
       "sha": "ce18b8d76ecb757984fea7c2263dc0e31d98f15a",
       "producer": "bootstrap@2026-11-04",
       "class": "generated",
       "at": "2026-11-04T19:39:19Z"
+    },
+    "play/game.js": {
+      "sha": "b02437621d25c03e77aa9db218fa61487cf151a4",
+      "producer": "audit-2026-11-10",
+      "class": "agent",
+      "at": "2026-11-10T12:36:02Z"
+    },
+    "play/tests/smoke.test.js": {
+      "sha": "1c32176eebd9ad1300d334f6041eb28008b597e9",
+      "producer": "audit-2026-11-10",
+      "class": "agent",
+      "at": "2026-11-10T12:36:02Z"
+    },
+    "play/tests/sw.test.js": {
+      "sha": "0fcc2d99dd40a816440414441d139861bb6dd66e",
+      "producer": "audit-2026-11-10",
+      "class": "agent",
+      "at": "2026-11-10T12:36:02Z"
+    },
+    "CHANGELOG.md": {
+      "sha": "269448a7ef9c23ebb841accb78a78ff2923a1f77",
+      "producer": "audit-2026-11-10",
+      "class": "agent",
+      "at": "2026-11-10T12:36:02Z"
+    },
+    "VERSION": {
+      "sha": "0ea3a944b399d25f7e1b8fe684d754eb8da9fe7f",
+      "producer": "audit-2026-11-10",
+      "class": "agent",
+      "at": "2026-11-10T12:36:02Z"
+    },
+    "play/game.min.js": {
+      "sha": "24ab3f565b1b24ba909e3c7e93291810c384e046",
+      "producer": "play/tools/minify.js",
+      "class": "generated",
+      "at": "2026-11-10T12:36:02Z"
+    },
+    "docs/play/game.min.js": {
+      "sha": "24ab3f565b1b24ba909e3c7e93291810c384e046",
+      "producer": "play/tools/minify.js",
+      "class": "generated",
+      "at": "2026-11-10T12:36:02Z"
     }
   },
-  "updated": "2026-11-06T19:04:49Z"
+  "updated": "2026-11-10T12:36:02Z"
 }

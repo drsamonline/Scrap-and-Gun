@@ -164,6 +164,23 @@ The runtime test uses a lightweight DOM/canvas shim and simulates 1,400 frames. 
 - [Testing and manual release checklist](docs/TESTING.md)
 - [Release audit notes](RELEASE_AUDIT.md)
 
+## Support
+
+One person's work: no company, no ads, no tracking, no paid tier. The game is free to play and
+stays free; if it ate an evening you enjoyed, a contribution keeps the next one coming — any
+amount, or none.
+
+| | |
+|---|---|
+| **UPI** | `drsohilboi@ybl` |
+| **Ko-fi** | [ko-fi.com/matneo](https://ko-fi.com/matneo) |
+| **PayPal** | [paypal.me/drsohilmomin](https://paypal.me/drsohilmomin?locale.x=en_GB&country.x=IN) |
+| **Books** | [the author's other work](https://www.amazon.com/stores/author/B08ZT331LY/allbooks) |
+| **Elsewhere** | [all projects](https://drsamonline.github.io/) |
+| **Email** | [sohilmomin2000@gmail.com](mailto:sohilmomin2000@gmail.com) — bugs, corrections, requests |
+
+The same block sits at the foot of the [landing page](https://drsamonline.github.io/Scrap-and-Gun/#support).
+
 ## Privacy
 
 The game is client-side and does not require an account or backend. Settings, run records and progression are stored locally in browser storage. The package does not intentionally transmit game data to a server.
