@@ -4,6 +4,8 @@
 
 ### Build. Defend. Survive.
 
+
+![Screenshot](docs/shot.png)
 A retro pixel-art arena defense shooter with tactical construction, escalating enemy waves, persistent upgrades, roguelite drafts, bosses and local co-op.
 
 **[▶ Play in your browser](https://drsamonline.github.io/Scrap-and-Gun/play/)** · **[Landing page](https://drsamonline.github.io/Scrap-and-Gun/)** · **[Releases](https://github.com/drsamonline/Scrap-and-Gun/releases)**
