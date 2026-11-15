@@ -181,6 +181,15 @@ footer .links{display:flex;gap:22px;justify-content:center;flex-wrap:wrap;margin
   } catch (e) { document.documentElement.setAttribute("data-theme", "dark"); }
 })();
 </script>
+<style>
+
+/* ---- a11y: the teal link sat on a light chip ------------------------------ */
+a.btn{color:#0a5f52!important}            /* 2.66 -> 5.00 on #d6d1ce */
+</style>
+<style>
+[data-theme="dark"] a.btn{color:#7fe0cf!important}          /* the dark theme's chip is #160e0b */
+[data-theme="dark"] a.btn.ghost{color:#e6ded6!important}
+</style>
 </head>
 <body>
 <div class="grid" aria-hidden="true"></div>
