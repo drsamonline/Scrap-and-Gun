@@ -15,10 +15,10 @@
       "at": "2026-11-10T12:36:02Z"
     },
     "docs/play/index.html": {
-      "sha": "ce18b8d76ecb757984fea7c2263dc0e31d98f15a",
-      "producer": "bootstrap@2026-11-04",
-      "class": "generated",
-      "at": "2026-11-04T19:39:19Z"
+      "sha": "313c04c4e0e2ce92f1786341dc70b7f89819132d",
+      "producer": "human",
+      "class": "hand",
+      "at": "2026-11-16T13:46:21Z"
     },
     "play/game.js": {
       "sha": "b02437621d25c03e77aa9db218fa61487cf151a4",
@@ -63,5 +63,5 @@
       "at": "2026-11-10T12:36:02Z"
     }
   },
-  "updated": "2026-11-10T12:36:02Z"
+  "updated": "2026-11-16T13:46:21Z"
 }
